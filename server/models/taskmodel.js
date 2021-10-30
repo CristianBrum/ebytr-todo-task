@@ -13,7 +13,15 @@ const getAllTasks = async () => {
   return ({ tasks: allTasks });
 };
 
+const getTaskByName = async (task) => {
+  const db = await conn.connection();
+  const getByName = await db.collection('tasks').findOne({ task });
+  if (!getByName) return null;
+  return getByName;
+};
+
 module.exports = {
   createNewTask,
   getAllTasks,
+  getTaskByName,
 };

@@ -7,6 +7,7 @@ const taskController = require('../controllers/taskcontroller');
 taskRoutes.post('/add',
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
+  taskIsValid.getTaskByName,
   taskController.createNewTask);
 
 taskRoutes.get('/', taskController.getAllTasks);

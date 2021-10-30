@@ -1,3 +1,5 @@
+const taskModel = require('../models/taskmodel');
+
 const checkSmallTask = (req, res, next) => {
   const { task } = req.body;
 
@@ -26,7 +28,24 @@ const checkBigTask = (req, res, next) => {
   return next();
 };
 
+const getTaskByName = async (req, res, next) => {
+  const { task } = req.body;
+
+  const taskByName = await taskModel.getTaskByName(task);
+
+  if (taskByName) {
+    return res.status(422).json({
+      err: {
+        code: 'invalid_data',
+        message: 'Task already exists',
+      },
+    });
+  }
+  return next();
+};
+
 module.exports = {
   checkSmallTask,
   checkBigTask,
+  getTaskByName,
 };
