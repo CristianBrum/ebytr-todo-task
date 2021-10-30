@@ -1,10 +1,14 @@
 const express = require('express');
+const taskIsValid = require('../validations/taskValidation');
 
 const taskRoutes = express.Router();
 const taskController = require('../controllers/taskcontroller');
 
-taskRoutes.route('/task/add').post(taskController.createNewTask);
+taskRoutes.post('/add',
+  taskIsValid.checkSmallTask,
+  taskIsValid.checkBigTask,
+  taskController.createNewTask);
 
-taskRoutes.route('/task').get(taskController.getAllTasks);
+taskRoutes.get('/', taskController.getAllTasks);
 
 module.exports = taskRoutes;
