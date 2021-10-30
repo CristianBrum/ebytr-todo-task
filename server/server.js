@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.use(require('./routes/taskRoutes'));
 const dbo = require('./connection');
 
 app.listen(PORT, () => {
