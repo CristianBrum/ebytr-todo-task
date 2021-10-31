@@ -10,6 +10,8 @@ taskRoutes.post('/add',
   taskIsValid.getTaskByName,
   taskController.createNewTask);
 
+taskRoutes.get('/:id', taskController.getTaskById);
+
 taskRoutes.get('/', taskController.getAllTasks);
 
 module.exports = taskRoutes;
