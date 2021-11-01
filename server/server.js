@@ -10,13 +10,13 @@ app.use(express.json());
 
 const dbo = require('./connection');
 
-const taskRoutes = require('./routes/taskRoutes');
+const { user, login, task } = require('./routes');
 
-const userRoutes = require('./routes/userRoutes');
+app.use('/users', user);
 
-app.use('/tasks', taskRoutes);
+app.use('/login', login);
 
-app.use('/users', userRoutes);
+app.use('/tasks', task);
 
 app.listen(PORT, () => {
   dbo.connectToServer((err) => {

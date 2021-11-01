@@ -1,8 +1,7 @@
-const express = require('express');
+const taskRoutes = require('express').Router();
 const rescue = require('express-rescue');
 const taskIsValid = require('../validations/taskValidation');
 
-const taskRoutes = express.Router();
 const taskController = require('../controllers/taskcontroller');
 
 taskRoutes.get('/', taskController.getAllTasks);
