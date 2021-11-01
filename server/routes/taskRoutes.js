@@ -4,18 +4,27 @@ const taskIsValid = require('../validations/taskValidation');
 const taskRoutes = express.Router();
 const taskController = require('../controllers/taskcontroller');
 
+taskRoutes.get('/', taskController.getAllTasks);
+
 taskRoutes.post('/add',
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
   taskIsValid.getTaskByName,
   taskController.createNewTask);
 
-taskRoutes.get('/:id', taskController.getTaskById);
+taskRoutes.get('/:id',
+  taskIsValid.checkTaskId,
+  taskController.getTaskById);
 
-taskRoutes.get('/', taskController.getAllTasks);
+taskRoutes.put('/:id',
+  taskIsValid.checkSmallTask,
+  taskIsValid.checkBigTask,
+  taskIsValid.getTaskByName,
+  taskIsValid.checkTaskId,
+  taskController.updateTask);
 
-taskRoutes.put('/:id', taskController.updateTask);
-
-taskRoutes.delete('/:id', taskController.deleteTask);
+taskRoutes.delete('/:id',
+  taskIsValid.checkTaskId,
+  taskController.deleteTask);
 
 module.exports = taskRoutes;
