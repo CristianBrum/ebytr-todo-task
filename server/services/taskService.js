@@ -17,9 +17,15 @@ const updateTask = async (_id, task) => {
   return result.value;
 };
 
+const deleteTask = async (id) => {
+  const result = await taskModel.deleteTask(id);
+  return result.value;
+};
+
 module.exports = {
   createNewTask,
   getAllTasks,
   getTaskById,
   updateTask,
+  deleteTask,
 };
