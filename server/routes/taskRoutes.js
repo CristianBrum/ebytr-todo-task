@@ -14,4 +14,6 @@ taskRoutes.get('/:id', taskController.getTaskById);
 
 taskRoutes.get('/', taskController.getAllTasks);
 
+taskRoutes.put('/:id', taskController.updateTask);
+
 module.exports = taskRoutes;
