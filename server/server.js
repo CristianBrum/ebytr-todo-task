@@ -12,7 +12,11 @@ const dbo = require('./connection');
 
 const taskRoutes = require('./routes/taskRoutes');
 
+const userRoutes = require('./routes/userRoutes');
+
 app.use('/tasks', taskRoutes);
+
+app.use('/users', userRoutes);
 
 app.listen(PORT, () => {
   dbo.connectToServer((err) => {

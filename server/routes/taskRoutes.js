@@ -1,4 +1,5 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const taskIsValid = require('../validations/taskValidation');
 
 const taskRoutes = express.Router();
@@ -10,21 +11,21 @@ taskRoutes.post('/add',
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
   taskIsValid.getTaskByName,
-  taskController.createNewTask);
+  rescue(taskController.createNewTask));
 
 taskRoutes.get('/:id',
   taskIsValid.checkTaskId,
-  taskController.getTaskById);
+  rescue(taskController.getTaskById));
 
 taskRoutes.put('/:id',
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
   taskIsValid.getTaskByName,
   taskIsValid.checkTaskId,
-  taskController.updateTask);
+  rescue(taskController.updateTask));
 
 taskRoutes.delete('/:id',
   taskIsValid.checkTaskId,
-  taskController.deleteTask);
+  rescue(taskController.deleteTask));
 
 module.exports = taskRoutes;
