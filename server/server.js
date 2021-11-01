@@ -10,10 +10,6 @@ app.use(express.json());
 
 const dbo = require('./connection');
 
-const taskRoutes = require('./routes/taskRoutes');
-
-app.use('/tasks', taskRoutes);
-
 app.listen(PORT, () => {
   dbo.connectToServer((err) => {
     if (err) console.error(err);
