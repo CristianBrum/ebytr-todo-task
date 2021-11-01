@@ -1,30 +1,34 @@
-const express = require('express');
+const taskRoutes = require('express').Router();
+const rescue = require('express-rescue');
 const taskIsValid = require('../validations/taskValidation');
+const auth = require('../validations/authJWT');
 
-const taskRoutes = express.Router();
 const taskController = require('../controllers/taskcontroller');
 
 taskRoutes.get('/', taskController.getAllTasks);
 
-taskRoutes.post('/add',
+taskRoutes.post('/',
+  auth.validateJWT,
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
   taskIsValid.getTaskByName,
-  taskController.createNewTask);
+  rescue(taskController.createNewTask));
 
 taskRoutes.get('/:id',
   taskIsValid.checkTaskId,
-  taskController.getTaskById);
+  rescue(taskController.getTaskById));
 
 taskRoutes.put('/:id',
+  auth.validateJWT,
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
   taskIsValid.getTaskByName,
   taskIsValid.checkTaskId,
-  taskController.updateTask);
+  rescue(taskController.updateTask));
 
 taskRoutes.delete('/:id',
+  auth.validateJWT,
   taskIsValid.checkTaskId,
-  taskController.deleteTask);
+  rescue(taskController.deleteTask));
 
 module.exports = taskRoutes;
