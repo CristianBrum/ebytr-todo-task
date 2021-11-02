@@ -1,4 +1,5 @@
 const conn = require('../connection');
+// const conn = require('../connection/connectionLocal');
 
 const createNewUser = async ({ name, email, password }) => {
   const db = await conn.connection();
