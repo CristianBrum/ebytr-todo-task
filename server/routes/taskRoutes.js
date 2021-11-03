@@ -31,4 +31,8 @@ taskRoutes.delete('/:id',
   taskIsValid.checkTaskId,
   rescue(taskController.deleteTask));
 
+taskRoutes.delete('/',
+  auth.validateJWT,
+  rescue(taskController.deleteAllTask));
+
 module.exports = taskRoutes;

@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb');
-const taskModel = require('../models/taskmodel');
+const taskModel = require('../models/taskModel');
 
 const checkSmallTask = (req, res, next) => {
   const { task } = req.body;
