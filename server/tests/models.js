@@ -234,9 +234,9 @@ describe('Testa a inserção de uma nova tarefa', () => {
         expect(response).to.be.an('object');
       });
 
-      it('o objeto contém as propriedades, "task"', async () => {
+      it('o objeto contém as propriedades, "task", "userId", "_id", "date"', async () => {
         const response = await taskModel.createNewTask(payload);
-        expect(response).to.have.all.keys('task', 'userId', '_id');
+        expect(response).to.have.all.keys('task', 'userId', '_id', 'date');
       });
     });
   });

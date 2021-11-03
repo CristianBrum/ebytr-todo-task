@@ -8,7 +8,7 @@ const createNewTask = async ({ task, data }) => {
 
 const getAllTasks = async () => {
   const allTasks = await taskModel.getAllTasks();
-  return { status: 200, allTasks };
+  return allTasks;
 };
 
 const getTaskById = async (id) => {
@@ -57,7 +57,7 @@ const deleteTask = async (id, data) => {
 };
 
 const deleteAllTask = async (data) => {
-  if (data.role === 'admin') {
+  if (data.role === 'ad') {
     await taskModel.deleteAllTask();
     return { status: 204 };
   }

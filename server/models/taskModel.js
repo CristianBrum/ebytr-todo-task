@@ -10,9 +10,7 @@ const createNewTask = async ({ task, userId }) => {
   const result = await db.collection('tasks')
     .insertOne({ task, userId, date });
   return {
-    task: {
-      task, userId, _id: result.insertedId, date,
-    },
+    task, userId, _id: result.insertedId, date,
   };
 };
 
@@ -39,7 +37,7 @@ const getTaskById = async (id) => {
 const updateTask = async (id, task) => {
   if (!ObjectId.isValid(id)) return null;
   const db = await conn.connection();
-  const result = db.collection('tasks').updateOne({ _id: ObjectId(id) }, { $set: { task } });
+  const result = db.collection('tasks').updateOne({ _id: ObjectId(id) }, { $set: task });
   return { _id: result.id, task };
 };
 

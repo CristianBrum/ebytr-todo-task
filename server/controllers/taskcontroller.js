@@ -10,8 +10,8 @@ const createNewTask = async (req, res) => {
 };
 
 const getAllTasks = async (_req, res) => {
-  const { status, allTasks } = await taskService.getAllTasks();
-  return res.status(status).json(allTasks);
+  const allTasks = await taskService.getAllTasks();
+  return res.status(200).json(allTasks);
 };
 
 const getTaskById = async (req, res) => {
