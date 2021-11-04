@@ -5,7 +5,7 @@ const isValid = require('../validations/userValidation');
 
 const userController = require('../controllers/userController');
 
-userRoutes.post('/',
+userRoutes.post('/register',
   isValid.isValidName,
   isValid.isValidPassword,
   isValid.isValidEmail,

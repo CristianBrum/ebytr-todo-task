@@ -5,7 +5,9 @@ const auth = require('../validations/authJWT');
 
 const taskController = require('../controllers/taskcontroller');
 
-taskRoutes.get('/', taskController.getAllTasks);
+taskRoutes.get('/',
+  // auth.validateJWT,
+  taskController.getAllTasks);
 
 taskRoutes.post('/',
   auth.validateJWT,

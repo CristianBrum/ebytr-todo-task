@@ -57,7 +57,7 @@ const deleteTask = async (id, data) => {
 };
 
 const deleteAllTask = async (data) => {
-  if (data.role === 'ad') {
+  if (data.role === 'admin') {
     await taskModel.deleteAllTask();
     return { status: 204 };
   }

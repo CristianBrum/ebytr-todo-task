@@ -27,7 +27,7 @@ const createToken = async (Email, password) => {
 
   const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
 
-  return { status: 200, token };
+  return { status: 200, token, _id };
 };
 
 module.exports = {
