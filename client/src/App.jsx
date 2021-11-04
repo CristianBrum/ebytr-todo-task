@@ -1,9 +1,10 @@
 import React from 'react';
+import './App.css';
 
 import Routes from './routes';
 
 const App = () => (
-  <div>
+  <div className="todo-app">
     <Routes />
   </div>
 );

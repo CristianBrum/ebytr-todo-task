@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { RiCloseCircleLine } from 'react-icons/ri';
+import { TiEdit } from 'react-icons/ti';
 
 function Tasks() {
   const [taske, setTask] = useState([]);
@@ -7,6 +9,7 @@ function Tasks() {
   const [newTasks, setNewTask] = useState('');
 
   const token = localStorage.getItem('token');
+  const name = localStorage.getItem('name');
 
   const createTask = () => {
     Axios.post(
@@ -68,29 +71,29 @@ function Tasks() {
   }
   return (
     <div>
-      <div className="Registation">
-        <h1>Nova Tarefa</h1>
+      <h1>{`O que temo para hoje, ${name}?`}</h1>
+      <form className="todo-form">
         <input
           type="text"
+          placeholder="Criar Tarefa"
+          className="todo-input"
           onChange={(e) => {
             setNewTask(e.target.value);
           }}
         />
-      </div>
 
-      <button type="button" onClick={refreshAndCreate}>
-        Criar
-      </button>
+        <button type="button" className="todo-button" onClick={refreshAndCreate}>
+          Criar
+        </button>
+      </form>
 
       {taske.map(({ task, _id }) => (
-        <div key={_id}>
-          <li>{task}</li>
-          <button type="button" onClick={() => refreshAndUpdate(_id)}>
-            update
-          </button>
-          <button type="button" onClick={() => refreshAndDelete(_id)}>
-            delete
-          </button>
+        <div key={_id} className="todo-row">
+          {task}
+          <div className="icons">
+            <RiCloseCircleLine type="button" className="delete-icon" onClick={() => refreshAndDelete(_id)} />
+            <TiEdit type="button" className="edit-icon" onClick={() => refreshAndUpdate(_id)} />
+          </div>
         </div>
       ))}
     </div>

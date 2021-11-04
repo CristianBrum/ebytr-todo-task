@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
-// import { useHistory } from 'react-router-dom';
-
-// const history = useHistory();
-
 function Register() {
   const [userNameReg, setUserNameReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
@@ -24,30 +20,36 @@ function Register() {
 
   return (
     <>
-      <div className="Registation">
-        <h1>Registration</h1>
+      <form className="todo-form form-logReg">
+        <h1>Cadastre-se</h1>
         <input
+          className="todo-input"
           type="text"
+          placeholder="Nome"
           onChange={(e) => {
             setUserNameReg(e.target.value);
           }}
         />
         <input
           type="text"
+          className="todo-input"
+          placeholder="Email"
           onChange={(e) => {
             setEmailReg(e.target.value);
           }}
         />
         <input
-          type="text"
+          type="password"
+          className="todo-input"
+          placeholder="Senha"
           onChange={(e) => {
             setPasswordReg(e.target.value);
           }}
         />
-        <button type="button" onClick={register}>
-          Register
+        <button type="button" className="todo-button" onClick={register}>
+          Cadastre-se
         </button>
-      </div>
+      </form>
     </>
   );
 }
