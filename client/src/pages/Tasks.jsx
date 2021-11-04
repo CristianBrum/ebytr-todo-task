@@ -6,9 +6,9 @@ function Tasks() {
 
   const [newTasks, setNewTask] = useState('');
 
-  const createTask = () => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
+  const createTask = () => {
     Axios.post(
       'http://localhost:5000/tasks',
       {
@@ -18,6 +18,13 @@ function Tasks() {
         headers: { authorization: token },
       },
     );
+  };
+
+  const deleteTask = (_id) => {
+    Axios.delete(`http://localhost:5000/tasks/${_id}`,
+      {
+        headers: { authorization: token },
+      });
   };
 
   useEffect(() => {
@@ -34,8 +41,13 @@ function Tasks() {
     });
   }, []);
 
-  function refresh() {
+  function refreshAndCreate() {
     createTask();
+    window.location.href = 'http://localhost:3000/tasks';
+  }
+
+  function refreshAndDelete(_id) {
+    deleteTask(_id);
     window.location.href = 'http://localhost:3000/tasks';
   }
   return (
@@ -49,12 +61,13 @@ function Tasks() {
           }}
         />
       </div>
-      <button type="button" onClick={refresh}>
+      <button type="button" onClick={refreshAndCreate}>
         Criar
       </button>
       {taske.map(({ task, _id }) => (
         <div key={_id}>
           <li>{task}</li>
+          <button type="button" onClick={() => refreshAndDelete(_id)}>delete</button>
         </div>
       ))}
     </div>
