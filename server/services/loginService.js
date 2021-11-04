@@ -18,16 +18,21 @@ const createToken = async (Email, password) => {
     return { status: 401, message: 'Incorrect username or password' };
   }
 
-  const { _id, email, role } = user;
+  const {
+    _id, email, role, name,
+  } = user;
   const userWithoutPassword = {
     id: _id,
     email,
     role,
+    name,
   };
 
   const token = jwt.sign({ data: userWithoutPassword }, secret, jwtConfig);
 
-  return { status: 200, token, _id };
+  return {
+    status: 200, token, _id, name,
+  };
 };
 
 module.exports = {

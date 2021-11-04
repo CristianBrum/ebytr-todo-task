@@ -13,32 +13,39 @@ function Login() {
       email,
       password,
     }).then((response) => {
-      localStorage.setItem('token', (response.data.token));
+      localStorage.setItem('token', response.data.token);
       // eslint-disable-next-line no-underscore-dangle
-      localStorage.setItem('userId', (response.data._id));
+      localStorage.setItem('userId', response.data._id);
+      localStorage.setItem('name', response.data.name);
       history.push('/tasks');
     });
   };
 
   return (
-    <div>
-      <div className="login">
-        <h1>Login</h1>
+    <>
+      <h1>Fazer Login</h1>
+      <form className="todo-form form-logReg">
         <input
           type="text"
+          className="todo-input"
+          placeholder="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
         <input
           type="password"
+          className="todo-input"
+          placeholder="Senha"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
         />
-        <button type="button" onClick={login}>Login</button>
-      </div>
-    </div>
+        <button type="button" className="todo-button" onClick={login}>
+          Entrar
+        </button>
+      </form>
+    </>
   );
 }
 
