@@ -8,7 +8,7 @@ const createNewTask = async ({ task, userId }) => {
 
   const db = await conn.connection();
   const result = await db.collection('tasks')
-    .insertOne({ task, userId, date });
+    .insertOne({ task, date, userId });
   return {
     task, userId, _id: result.insertedId, date,
   };

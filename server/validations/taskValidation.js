@@ -1,5 +1,4 @@
 const { ObjectId } = require('mongodb');
-const taskModel = require('../models/taskModel');
 
 const checkSmallTask = (req, res, next) => {
   const { task } = req.body;
@@ -29,22 +28,6 @@ const checkBigTask = (req, res, next) => {
   return next();
 };
 
-const getTaskByName = async (req, res, next) => {
-  const { task } = req.body;
-
-  const taskByName = await taskModel.getTaskByName(task);
-
-  if (taskByName) {
-    return res.status(422).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Task already exists',
-      },
-    });
-  }
-  return next();
-};
-
 const checkTaskId = (req, res, next) => {
   const { id } = req.params;
   if (!ObjectId.isValid(id)) {
@@ -61,6 +44,5 @@ const checkTaskId = (req, res, next) => {
 module.exports = {
   checkSmallTask,
   checkBigTask,
-  getTaskByName,
   checkTaskId,
 };
