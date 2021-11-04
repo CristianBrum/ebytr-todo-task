@@ -20,22 +20,33 @@ function Tasks() {
     );
   };
 
-  const deleteTask = (_id) => {
-    Axios.delete(`http://localhost:5000/tasks/${_id}`,
+  const updateTask = (id) => {
+    Axios.put(
+      `http://localhost:5000/tasks/${id}`,
+      {
+        task: newTasks,
+      },
       {
         headers: { authorization: token },
-      });
+      },
+    );
+  };
+
+  const deleteTask = (_id) => {
+    Axios.delete(`http://localhost:5000/tasks/${_id}`, {
+      headers: { authorization: token },
+    });
   };
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    Axios.get('http://localhost:5000/tasks', {
-
-    }).then((response) => {
+    Axios.get('http://localhost:5000/tasks', {}).then((response) => {
       if (!response.data.tasks) {
         setTask();
       } else {
-        const data = response.data.tasks.filter((item) => item.userId === userId);
+        const data = response.data.tasks.filter(
+          (item) => item.userId === userId,
+        );
         setTask(data);
       }
     });
@@ -43,6 +54,11 @@ function Tasks() {
 
   function refreshAndCreate() {
     createTask();
+    window.location.href = 'http://localhost:3000/tasks';
+  }
+
+  function refreshAndUpdate(_id) {
+    updateTask(_id);
     window.location.href = 'http://localhost:3000/tasks';
   }
 
@@ -61,13 +77,20 @@ function Tasks() {
           }}
         />
       </div>
+
       <button type="button" onClick={refreshAndCreate}>
         Criar
       </button>
+
       {taske.map(({ task, _id }) => (
         <div key={_id}>
           <li>{task}</li>
-          <button type="button" onClick={() => refreshAndDelete(_id)}>delete</button>
+          <button type="button" onClick={() => refreshAndUpdate(_id)}>
+            update
+          </button>
+          <button type="button" onClick={() => refreshAndDelete(_id)}>
+            delete
+          </button>
         </div>
       ))}
     </div>
