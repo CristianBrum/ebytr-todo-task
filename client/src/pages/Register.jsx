@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 
+// import { useHistory } from 'react-router-dom';
+
+// const history = useHistory();
+
 function Register() {
   const [userNameReg, setUserNameReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
 
   const register = () => {
-    Axios.post('http://localhost:5000/users/register', {
+    Axios.post('http://localhost:5000/register', {
       name: userNameReg,
       password: passwordReg,
       email: emailReg,
+    }).then((response) => {
+      if (response) {
+        window.location.href = 'http://localhost:3000/login';
+      }
     });
   };
 

@@ -1,12 +1,17 @@
 import React from 'react';
-import Login from './Login';
-import Register from './Register';
+import { Link } from 'react-router-dom';
 
 function Home() {
   return (
     <>
-      <Register />
-      <Login />
+      <div>
+        <Link to="/register">
+          <button type="button">Registrar</button>
+        </Link>
+        <Link to="/login">
+          <button type="button">Logar</button>
+        </Link>
+      </div>
     </>
   );
 }

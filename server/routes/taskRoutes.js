@@ -6,14 +6,12 @@ const auth = require('../validations/authJWT');
 const taskController = require('../controllers/taskcontroller');
 
 taskRoutes.get('/',
-  // auth.validateJWT,
   taskController.getAllTasks);
 
 taskRoutes.post('/',
   auth.validateJWT,
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
-  taskIsValid.getTaskByName,
   rescue(taskController.createNewTask));
 
 taskRoutes.get('/:id',
@@ -24,7 +22,6 @@ taskRoutes.put('/:id',
   auth.validateJWT,
   taskIsValid.checkSmallTask,
   taskIsValid.checkBigTask,
-  taskIsValid.getTaskByName,
   taskIsValid.checkTaskId,
   rescue(taskController.updateTask));
 

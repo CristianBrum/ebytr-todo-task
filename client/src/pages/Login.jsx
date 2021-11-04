@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
-// This will require to npm install axios
 
 function Login() {
   const [email, setEmail] = useState('');

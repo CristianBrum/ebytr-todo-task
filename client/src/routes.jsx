@@ -8,10 +8,10 @@ import Tasks from './pages/Tasks';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
       <Route exact path="/" component={Home} />
-      <Route exact path="/tasks" component={Tasks} />
+      <Route path="/tasks" component={Tasks} />
 
     </Switch>
   );

@@ -14,7 +14,7 @@ const dbo = require('./connection');
 
 const { user, login, task } = require('./routes');
 
-app.use('/users', user);
+app.use('/register', user);
 
 app.use('/login', login);
 
