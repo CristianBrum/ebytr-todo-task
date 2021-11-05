@@ -1,17 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 function Home() {
   return (
     <>
-      <div>
-        <Link to="/register">
-          <button type="button">Registrar</button>
-        </Link>
-        <Link to="/login">
-          <button type="button">Logar</button>
-        </Link>
-      </div>
+      <container className="home-page">
+        <h1>Bem Vindo!</h1>
+        <div className="btn-home">
+          <button
+            type="button"
+            onClick={() => {
+              window.location = 'http://localhost:3000/register';
+            }}
+            className="todo-button"
+          >
+            Criar Nova Conta
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              window.location = 'http://localhost:3000/login';
+            }}
+            className="todo-button"
+          >
+            Logar
+          </button>
+        </div>
+      </container>
     </>
   );
 }

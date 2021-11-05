@@ -4,8 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
     "test": "mocha ./tests/**/*$NAME*.test.js --exit",
-    "start": "nodemon server.js"
+    "start": "node server",
+    "server": "nodemon server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +23,7 @@
     "express-rescue": "^1.1.31",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.9",
+    "mongoose": "^6.0.12",
     "nodemon": "^2.0.4"
   },
   "devDependencies": {
