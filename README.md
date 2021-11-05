@@ -7,6 +7,7 @@ Nesse projeto, foi utilizado:
   - NodeJS
   - Express
   - Atlas MongoDB DB.
+  - ReactJS
 ---
 
 
