@@ -7,7 +7,7 @@ const isValidName = (req, res, next) => {
     return res.status(400).json({
       err: {
         code: 'invalid_data',
-        message: 'Invalid entries. Try again.',
+        message: 'Entradas inválidas. Tente novamente.',
       },
     });
   }
@@ -23,7 +23,7 @@ const userExists = async (req, res, next) => {
     return res.status(409).json({
       err: {
         code: 'invalid_data',
-        message: 'Email already registered',
+        message: 'Email já existe!',
       },
     });
   }
@@ -38,7 +38,7 @@ const isValidEmail = (req, res, next) => {
     return res.status(400).json({
       err: {
         code: 'invalid_data',
-        message: 'Invalid entries. Try again.',
+        message: 'Entradas inválidas. Tente novamente.',
       },
     });
   }
@@ -52,7 +52,7 @@ const isValidPassword = (req, res, next) => {
     return res.status(400).json({
       err: {
         code: 'invalid_data',
-        message: 'Invalid entries. Try again.',
+        message: 'Entradas inválidas. Tente novamente.',
       },
     });
   }

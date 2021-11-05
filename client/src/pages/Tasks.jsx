@@ -71,7 +71,8 @@ function Tasks() {
   }
   return (
     <div>
-      <h1>{`O que temo para hoje, ${name}?`}</h1>
+
+      <h1>{`Olá ${name.toUpperCase()}! O que temos para hoje?`}</h1>
       <form className="todo-form">
         <input
           type="text"

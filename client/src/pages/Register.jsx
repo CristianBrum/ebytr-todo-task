@@ -5,6 +5,7 @@ function Register() {
   const [userNameReg, setUserNameReg] = useState('');
   const [passwordReg, setPasswordReg] = useState('');
   const [emailReg, setEmailReg] = useState('');
+  const [error, setError] = useState('');
 
   const register = () => {
     Axios.post('http://localhost:5000/register', {
@@ -15,6 +16,9 @@ function Register() {
       if (response) {
         window.location.href = 'http://localhost:3000/login';
       }
+    }).catch((err) => {
+      const data = err.response.data.err.message;
+      setError(data);
     });
   };
 
@@ -46,6 +50,7 @@ function Register() {
             setPasswordReg(e.target.value);
           }}
         />
+        <div className="alert-error">{error}</div>
         <button type="button" className="todo-button" onClick={register}>
           Cadastre-se
         </button>

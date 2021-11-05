@@ -5,7 +5,7 @@ import Axios from 'axios';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
   const history = useHistory();
 
   const login = () => {
@@ -18,6 +18,9 @@ function Login() {
       localStorage.setItem('userId', response.data._id);
       localStorage.setItem('name', response.data.name);
       history.push('/tasks');
+    }).catch((err) => {
+      const data = err.response.data.message;
+      setError(data);
     });
   };
 
@@ -41,6 +44,7 @@ function Login() {
             setPassword(e.target.value);
           }}
         />
+        <div className="alert-error">{error}</div>
         <button type="button" className="todo-button" onClick={login}>
           Entrar
         </button>

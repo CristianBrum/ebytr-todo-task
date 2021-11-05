@@ -4,7 +4,7 @@ function Home() {
   return (
     <>
       <container className="home-page">
-        <h1>EBYTR Todo Task</h1>
+        <h1>Bem Vindo!</h1>
         <div className="btn-home">
           <button
             type="button"
