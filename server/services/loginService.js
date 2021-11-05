@@ -10,12 +10,12 @@ const jwtConfig = {
 
 const createToken = async (Email, password) => {
   if (!Email || !password) {
-    return { status: 401, message: 'All fields must be filled' };
+    return { status: 401, message: 'Preencha todos os campos' };
   }
 
   const user = await userModel.getUserEmail(Email);
   if (!user || user.password !== password) {
-    return { status: 401, message: 'Incorrect username or password' };
+    return { status: 401, message: 'Usuário ou senha Inválidos' };
   }
 
   const {
