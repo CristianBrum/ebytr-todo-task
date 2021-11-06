@@ -27,3 +27,6 @@ Uma Api para Cadastro e organização de  Tarefas da empresa Ebytr.
     * `npm install`
   * Inicialize o projeto:
     * `npm start`
+
+### referências
+https://github.com/JeelGajera/React_Todo-app?ref=reactjsexample.com
