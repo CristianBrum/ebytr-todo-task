@@ -12,7 +12,6 @@ function Routes() {
       <Route path="/login" component={Login} />
       <Route exact path="/" component={Home} />
       <Route path="/tasks" component={Tasks} />
-
     </Switch>
   );
 }

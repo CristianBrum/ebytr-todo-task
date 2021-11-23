@@ -1,34 +1,22 @@
 const taskService = require('../services/taskService');
 
-const createNewTask = async (req, res) => {
-  const { task } = req.body;
-  const { data } = req.userInfo;
-
-  const { status, newTask } = await taskService.createNewTask({ task, data });
-
-  return res.status(status).json(newTask);
-};
-
 const getAllTasks = async (_req, res) => {
   const allTasks = await taskService.getAllTasks();
   return res.status(200).json(allTasks);
 };
 
-const getTaskById = async (req, res) => {
-  const { id } = req.params;
-  const { status, taskById, message } = await taskService.getTaskById(id);
+const createNewTask = async (req, res) => {
+  const { task } = req.body;
+  const { data } = req.userInfo;
 
-  if (message) {
-    return res.status(status).json({ message });
-  }
-
-  return res.status(status).json(taskById);
+  const newTask = await taskService.createNewTask(task, data);
+  return res.status(201).json(newTask);
 };
 
 const updateTask = async (req, res) => {
   const { id } = req.params;
   const { data } = req.userInfo;
-  const { status, result, message } = await taskService.updateTask(id, req.body, data);
+  const { message, status, result } = await taskService.updateTask(id, req.body, data);
 
   if (message) {
     return res.status(status).json({ message });
@@ -50,23 +38,9 @@ const deleteTask = async (req, res) => {
   return res.status(status).json();
 };
 
-const deleteAllTask = async (req, res) => {
-  const { data } = req.userInfo;
-
-  const { status, message } = await taskService.deleteAllTask(data);
-
-  if (message) {
-    return res.status(status).json({ message });
-  }
-
-  return res.status(status).json();
-};
-
 module.exports = {
   createNewTask,
   getAllTasks,
-  getTaskById,
   updateTask,
   deleteTask,
-  deleteAllTask,
 };

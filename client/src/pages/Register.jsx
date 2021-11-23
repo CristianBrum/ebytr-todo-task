@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
-import Axios from 'axios';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import TasksContext from '../context/TaskContext';
+
+import { newRegister } from '../services/registerApi';
 
 function Register() {
-  const [userNameReg, setUserNameReg] = useState('');
-  const [passwordReg, setPasswordReg] = useState('');
-  const [emailReg, setEmailReg] = useState('');
-  const [error, setError] = useState('');
-
-  const register = () => {
-    Axios.post('http://localhost:5000/register', {
-      name: userNameReg,
-      password: passwordReg,
-      email: emailReg,
-    }).then((response) => {
-      if (response) {
-        window.location.href = 'http://localhost:3000/login';
-      }
-    }).catch((err) => {
-      const data = err.response.data.err.message;
-      setError(data);
-    });
-  };
+  const {
+    userNameReg,
+    setUserNameReg,
+    passwordReg,
+    setPasswordReg,
+    emailReg,
+    setEmailReg,
+    setError,
+    error,
+  } = useContext(TasksContext);
+  const history = useHistory();
 
   return (
     <>
@@ -51,7 +46,13 @@ function Register() {
           }}
         />
         <div className="alert-error">{error}</div>
-        <button type="button" className="todo-button" onClick={register}>
+        <button
+          type="button"
+          className="todo-button"
+          onClick={() => {
+            newRegister(userNameReg, emailReg, passwordReg, setError, history);
+          }}
+        >
           Cadastre-se
         </button>
       </form>

@@ -1,65 +1,43 @@
 const { ObjectId } = require('mongodb');
-const conn = require('../connection');
-// const conn = require('../connection/connectionLocal');
+const connection = require('../connection');
 
-const createNewTask = async ({ task, userId }) => {
+const createNewTask = async (task, userId) => {
+  const db = await connection();
   if (!task) return null;
-  const date = new Date();
 
-  const db = await conn.connection();
-  const result = await db.collection('tasks')
-    .insertOne({ task, date, userId });
-  return {
-    task, userId, _id: result.insertedId, date,
-  };
+  return db.collection('tasks')
+    .insertOne({ task, userId })
+    .then(({ insertedId }) => ({ _id: insertedId, task, userId }));
 };
 
 const getAllTasks = async () => {
-  const db = await conn.connection('ebytr_tasks');
-  const allTasks = await db.collection('tasks').find().toArray();
-  return ({ tasks: allTasks });
-};
-
-const getTaskByName = async (task) => {
-  const db = await conn.connection();
-  const getByName = await db.collection('tasks').findOne({ task });
-  if (!getByName) return null;
-  return getByName;
+  const db = await connection('ebytr_tasks');
+  return db.collection('tasks').find().toArray();
 };
 
 const getTaskById = async (id) => {
+  const db = await connection();
   if (!ObjectId.isValid(id)) return null;
-  const db = await conn.connection();
-  const getById = await db.collection('tasks').findOne({ _id: ObjectId(id) });
-  return getById;
+  return db.collection('tasks').findOne(ObjectId(id));
 };
 
 const updateTask = async (id, task) => {
-  if (!ObjectId.isValid(id)) return null;
-  const db = await conn.connection();
-  const result = db.collection('tasks').updateOne({ _id: ObjectId(id) }, { $set: task });
-  return { _id: result.id, task };
+  const db = await connection();
+  await db.collection('tasks').findOneAndUpdate({ _id: ObjectId(id) }, { $set: task });
+  return { _id: id, task };
 };
 
 const deleteTask = async (id) => {
+  const db = await connection();
   if (!ObjectId.isValid(id)) return null;
-  const db = await conn.connection();
-  const result = await db.collection('tasks').findOneAndDelete({ _id: ObjectId(id) });
-  return result.value;
-};
-
-const deleteAllTask = async () => {
-  const db = await conn.connection();
-  const result = await db.collection('tasks').deleteMany();
-  return result;
+  await db.collection('tasks').deleteOne({ _id: ObjectId(id) });
+  return null;
 };
 
 module.exports = {
   createNewTask,
   getAllTasks,
-  getTaskByName,
   getTaskById,
   updateTask,
   deleteTask,
-  deleteAllTask,
 };

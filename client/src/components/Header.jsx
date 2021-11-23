@@ -6,7 +6,6 @@ function Header() {
 
   function refheshPage() {
     setLoading(!loading);
-    window.location.href = 'http://localhost:3000/';
   }
 
   return (
