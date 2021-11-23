@@ -11,6 +11,9 @@ body {
   height: 100vh;
 }
 
+.Pronto {
+  color: red;
+}
 .todo-app {
   display: flex;
   flex-direction: column;

@@ -5,10 +5,7 @@ const isValidName = (req, res, next) => {
 
   if (!name || name === '') {
     return res.status(400).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Entradas inválidas. Tente novamente.',
-      },
+      message: 'Entradas inválidas. Tente novamente.',
     });
   }
   return next();
@@ -21,10 +18,7 @@ const userExists = async (req, res, next) => {
 
   if (userEmail) {
     return res.status(409).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Email já existe!',
-      },
+      message: 'Email já existe!',
     });
   }
   return next();
@@ -36,10 +30,8 @@ const isValidEmail = (req, res, next) => {
 
   if (!regex.test(email) || !email) {
     return res.status(400).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Entradas inválidas. Tente novamente.',
-      },
+      message: 'Entradas inválidas. Tente novamente.',
+
     });
   }
   return next();
@@ -50,10 +42,7 @@ const isValidPassword = (req, res, next) => {
 
   if (!password || password === '') {
     return res.status(400).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Entradas inválidas. Tente novamente.',
-      },
+      message: 'Entradas inválidas. Tente novamente.',
     });
   }
   return next();

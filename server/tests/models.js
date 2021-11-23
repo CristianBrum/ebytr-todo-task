@@ -10,7 +10,7 @@ const {
   afterEach,
 } = require('mocha');
 const { getConnection } = require('./mongoMockConnection');
-const conn = require('../connection/connectionLocal');
+const connection = require('../connection');
 
 const taskModel = require('../models/taskModel');
 
@@ -392,7 +392,7 @@ describe('Testa a conexão com o MongoDB', () => {
   describe('quando há sucesso', () => {
     describe('a resposta', () => {
       it('é uma Promise', () => {
-        const result = conn.connection();
+        const result = connection();
         expect(result).to.be.a('Promise');
       });
     });
@@ -409,7 +409,7 @@ describe('Testa a conexão com o MongoDB', () => {
       });
 
       it('é um erro', async () => {
-        const result = await conn.connection();
+        const result = await connection();
         expect(() => result.catch((err) => err)).to.be.a('function');
       });
     });

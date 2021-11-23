@@ -1,6 +1,9 @@
+import { useHistory } from 'react-router-dom';
 import React from 'react';
 
 function Home() {
+  const history = useHistory();
+
   return (
     <>
       <container className="home-page">
@@ -9,7 +12,7 @@ function Home() {
           <button
             type="button"
             onClick={() => {
-              window.location = 'http://localhost:3000/register';
+              history.push('/register');
             }}
             className="todo-button"
           >
@@ -18,7 +21,7 @@ function Home() {
           <button
             type="button"
             onClick={() => {
-              window.location = 'http://localhost:3000/login';
+              history.push('/login');
             }}
             className="todo-button"
           >

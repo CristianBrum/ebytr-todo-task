@@ -1,28 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Axios from 'axios';
+import TasksContext from '../context/TaskContext';
+import { login } from '../services/LoginApi';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {
+    email, setEmail, password, setPassword, error, setError,
+  } = useContext(TasksContext);
   const history = useHistory();
-
-  const login = () => {
-    Axios.post('http://localhost:5000/login', {
-      email,
-      password,
-    }).then((response) => {
-      localStorage.setItem('token', response.data.token);
-      // eslint-disable-next-line no-underscore-dangle
-      localStorage.setItem('userId', response.data._id);
-      localStorage.setItem('name', response.data.name);
-      history.push('/tasks');
-    }).catch((err) => {
-      const data = err.response.data.message;
-      setError(data);
-    });
-  };
 
   return (
     <>
@@ -45,7 +30,11 @@ function Login() {
           }}
         />
         <div className="alert-error">{error}</div>
-        <button type="button" className="todo-button" onClick={login}>
+        <button
+          type="button"
+          className="todo-button"
+          onClick={() => login(email, password, setError, history)}
+        >
           Entrar
         </button>
       </form>

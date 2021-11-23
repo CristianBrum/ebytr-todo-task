@@ -5,10 +5,7 @@ const checkSmallTask = (req, res, next) => {
 
   if (typeof task !== 'string' || task.length < 10) {
     return res.status(422).json({
-      err: {
-        code: 'invalid_data',
-        message: '"task" Your task is too small',
-      },
+      message: '"task" Your task is too small',
     });
   }
   return next();
@@ -19,10 +16,7 @@ const checkBigTask = (req, res, next) => {
 
   if (typeof task !== 'string' || task.length > 50) {
     return res.status(422).json({
-      err: {
-        code: 'invalid_data',
-        message: '"task" Your task is too big',
-      },
+      message: '"task" Your task is too big',
     });
   }
   return next();
@@ -32,10 +26,8 @@ const checkTaskId = (req, res, next) => {
   const { id } = req.params;
   if (!ObjectId.isValid(id)) {
     return res.status(422).json({
-      err: {
-        code: 'invalid_data',
-        message: 'Wrong id format',
-      },
+      message: 'Wrong id format',
+
     });
   }
   return next();

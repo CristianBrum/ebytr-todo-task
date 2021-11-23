@@ -1,9 +1,9 @@
 const taskModel = require('../models/taskModel');
 
-const createNewTask = async ({ task, data }) => {
+const createNewTask = async (task, data) => {
   const userId = data.id;
-  const newTask = await taskModel.createNewTask({ task, userId });
-  return { status: 201, newTask };
+  const newTask = await taskModel.createNewTask(task, userId);
+  return newTask;
 };
 
 const getAllTasks = async () => {
@@ -11,21 +11,13 @@ const getAllTasks = async () => {
   return allTasks;
 };
 
-const getTaskById = async (id) => {
-  const taskById = await taskModel.getTaskById(id);
-
-  if (!taskById) {
-    return { status: 404, message: 'task not found' };
-  }
-
-  return { status: 200, taskById };
-};
-
 const updateTask = async (id, task, data) => {
   const taskById = await taskModel.getTaskById(id);
 
   if (!taskById) {
-    return { status: 404, message: 'task not found' };
+    return {
+      status: 404, error: true, message: 'Tarefa não encontrada', code: 'notFound',
+    };
   }
 
   const idUser = data.id;
@@ -34,42 +26,34 @@ const updateTask = async (id, task, data) => {
     const result = await taskModel.updateTask(id, task);
     return { status: 200, result };
   }
-
-  return { status: 401, message: 'missing auth token' };
+  return {
+    status: 401, error: true, message: 'Sem autorizacao', code: 'unauthorized',
+  };
 };
 
 const deleteTask = async (id, data) => {
   const taskById = await taskModel.getTaskById(id);
 
   if (!taskById) {
-    return { status: 404, message: 'task not found' };
+    return {
+      status: 404, error: true, message: 'Tarefa não encontrada', code: 'notFound',
+    };
   }
 
   const idUser = data.id;
-  console.log(idUser);
 
   if (taskById.userId === idUser || data.role === 'admin') {
     await taskModel.deleteTask(id);
     return { status: 204 };
   }
-
-  return { status: 401, message: 'missing auth token' };
-};
-
-const deleteAllTask = async (data) => {
-  if (data.role === 'admin') {
-    await taskModel.deleteAllTask();
-    return { status: 204 };
-  }
-
-  return { status: 401, message: 'missing auth token' };
+  return {
+    status: 401, error: true, message: 'Tarefa não encontrada', code: 'unauthorized',
+  };
 };
 
 module.exports = {
   createNewTask,
   getAllTasks,
-  getTaskById,
   updateTask,
   deleteTask,
-  deleteAllTask,
 };

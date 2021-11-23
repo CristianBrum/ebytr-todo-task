@@ -1,8 +1,7 @@
-const conn = require('../connection');
-// const conn = require('../connection/connectionLocal');
+const connection = require('../connection');
 
 const createNewUser = async ({ name, email, password }) => {
-  const db = await conn.connection();
+  const db = await connection();
   const newUser = await db.collection('users').insertOne({
     name, email, password, role: 'user',
   });
@@ -12,7 +11,7 @@ const createNewUser = async ({ name, email, password }) => {
 };
 
 const getUserEmail = async (email) => {
-  const db = await conn.connection();
+  const db = await connection();
   const userEmail = await db.collection('users').findOne({ email });
   if (!userEmail) return null;
   return userEmail;
